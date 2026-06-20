@@ -1,73 +1,31 @@
-# React + TypeScript + Vite
+# Minhub Auth
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Firebase Authentication을 사용해 Google 로그인을 제공하기 위한 React 웹 앱입니다.
 
-Currently, two official plugins are available:
+## 기술 스택
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React
+- TypeScript
+- Vite
+- Firebase Authentication
 
-## React Compiler
+## Firebase 설정
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Firebase 앱 설정은 [`src/firebase.ts`](src/firebase.ts)에 있습니다. 인증 도메인은 배포 주소인 `hello-world-minhub.netlify.app`으로 설정되어 있습니다.
 
-## Expanding the ESLint configuration
+Google 로그인을 사용하려면 Firebase Console에서 Google 로그인 제공자를 활성화하고 `hello-world-minhub.netlify.app`을 승인된 도메인에 추가해야 합니다.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+App Check를 사용하려면 `.env.local`과 배포 환경에 `VITE_RECAPTCHA_SITE_KEY`를 설정해야 합니다. 값은 Firebase Console의 App Check에 등록한 reCAPTCHA v3 site key를 사용합니다.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 로컬 실행
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 빌드
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
 ```
